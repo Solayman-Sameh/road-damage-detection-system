@@ -6,8 +6,11 @@ selected model through an English/Arabic Streamlit app.
 
 **Selected model:** tuned YOLO26m · **Test mAP50:** 77.94% · **Test mAP50–95:** 49.92%
 
-**Status:** implemented and checked locally. GitHub publication and a public
-Streamlit Community Cloud deployment are pending.
+**Live app:** [Try Road Damage Detection](https://solayman-road-damage-detection.streamlit.app/)
+
+**Status:** published on GitHub and deployed to Streamlit Community Cloud.
+Local verification covers image/video processing; hosted video performance and
+multi-user capacity remain unverified.
 
 ![Road damage detection with the selected model](app/assets/streamlit-en.png)
 
@@ -309,7 +312,9 @@ local research inputs; they are not needed to run the app.
 
 ## Publish on Streamlit Community Cloud
 
-Public deployment is **pending**. To release the app:
+The [public app](https://solayman-road-damage-detection.streamlit.app/) is deployed.
+Image previews are sent as inline data URIs to avoid failures in the host's
+generated media-file URLs. To recreate the deployment:
 
 1. Create the GitHub repository and push the reviewed app, selected model files,
    notebook, examples, configuration, and this README.
