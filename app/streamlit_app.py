@@ -1,12 +1,15 @@
 """Streamlit entrypoint. Run from the project root."""
 from hashlib import sha256
 from html import escape
+from base64 import b64encode
+from io import BytesIO
 import json
 import logging
 import os
 from pathlib import Path
 
 import streamlit as st
+from PIL import Image
 from inference import DEFAULT_WEIGHTS, load_detector, detect_image
 from media import MediaError, VideoOutput, media_kind, open_image, process_video
 from translations import TEXT
@@ -14,6 +17,23 @@ from translations import TEXT
 APP = Path(__file__).resolve().parent
 logger = logging.getLogger(__name__)
 st.set_page_config(page_title="Road Damage Detection", page_icon="🛣️", layout="wide")
+
+
+def show_image(image):
+    """Send previews inline so cloud media-route failures cannot hide them."""
+    if isinstance(image, (str, Path)):
+        data = Path(image).read_bytes()
+        mime = "image/jpeg"
+    else:
+        if not isinstance(image, Image.Image):
+            image = Image.fromarray(image)
+        # Bound display payloads; inference still receives the original image.
+        image = image.copy()
+        image.thumbnail((1600, 1600))
+        buffer = BytesIO()
+        image.save(buffer, format="PNG")
+        data, mime = buffer.getvalue(), "image/png"
+    st.image(f"data:{mime};base64,{b64encode(data).decode('ascii')}", width="stretch")
 
 
 def release_result():
@@ -118,7 +138,7 @@ with st.container(key="workspace"):
                 try:
                     kind = media_kind(current["name"])
                     if kind == "image":
-                        st.image(open_image(current["data"]), width="stretch")
+                        show_image(open_image(current["data"]))
                     else:
                         st.markdown('<div class="video-input">▷<br>' + escape(current["name"]) + '</div>', unsafe_allow_html=True)
                         st.caption(t["video_note"])
@@ -138,7 +158,7 @@ with st.container(key="workspace"):
                 with st.container(key="examples"):
                     for column, example in zip(st.columns(len(examples), gap="small"), examples):
                         with column:
-                            st.image(str(example), width="stretch")
+                            show_image(example)
                             number = examples.index(example) + 1
                             label = f'{t["scene"]} {number if not rtl else str(number).translate(str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩"))}'
                             st.button(label, key="example_" + example.stem, on_click=select_example,
@@ -192,7 +212,7 @@ with result_area.container():
         st.warning(t.get(error, t["failed"]))
     elif result:
         if result["kind"] == "image":
-            st.image(result["image"], width="stretch")
+            show_image(result["image"])
         else:
             st.video(str(result["video"].path), format="video/mp4", autoplay=True, muted=True)
         if result["count"] == 0:
