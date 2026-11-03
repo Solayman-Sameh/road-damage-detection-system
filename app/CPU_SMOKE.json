@@ -1,0 +1,13 @@
+{
+  "scope": "Local CPU smoke check; 3 repeated predictions on one example after one warmup. Includes annotation, excludes upload/UI/model load. Not deployment throughput.",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "device": "cpu",
+  "torch_threads": 2,
+  "image_seconds": [
+    0.690523099998245,
+    0.6808947999998054,
+    0.6916939000002458
+  ],
+  "detections": 5,
+  "resident_MiB": 1046.42578125
+}

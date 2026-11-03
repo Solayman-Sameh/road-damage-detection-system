@@ -1,0 +1,11 @@
+# CPU deployment; GPU training environment is recorded separately in the v3 export.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+torchvision==0.20.1+cpu
+ultralytics==8.4.191
+streamlit==1.59.2
+Pillow==12.3.0
+numpy==2.4.6
+# Match Ultralytics' OpenCV dependency; avoid installing two cv2 distributions.
+opencv-python==5.0.0.93
+imageio-ffmpeg==0.6.0

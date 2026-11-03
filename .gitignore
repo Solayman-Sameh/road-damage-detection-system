@@ -1,0 +1,58 @@
+# Local notes and configuration
+.env
+.env.*
+!.env.example
+*.local
+credentials.json
+service-account*.json
+serviceAccount*.json
+kaggle.json
+*.pem
+*.key
+
+# Python and notebook caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+# Publish only the completed canonical notebook, not debug/starter notebooks.
+*.ipynb
+!/notebooks/instant-sprint02-project02-road-damage-detection.ipynb
+/notebooks/archive/
+
+# Local research, datasets, source configuration and planning documents
+/research/
+/data/
+/config/
+/docs/
+
+# Generated outputs and model weights
+/models/*
+!/models/v3/
+/models/v3/*
+!/models/v3/yolo26m/
+/models/v3/yolo26m/*
+!/models/v3/yolo26m/best.pt
+!/models/v3/yolo26m/inference_contract.json
+!/models/v3/yolo26m/labels.json
+/runs/
+/outputs/
+/alerts/
+*.pt
+!/models/v3/yolo26m/best.pt
+*.pth
+*.ckpt
+*.onnx
+*.zip
+*.db
+*.sqlite
+*.sqlite3
+
+/synthetic-check-*/
+/road-damage-eval-*/
+
+# Single public documentation entrypoint; keep other Markdown notes locally.
+*.md
+!/README.md

@@ -1,0 +1,27 @@
+{
+  "model": "yolo26m",
+  "trial": "v26_medium_tuned_002",
+  "weights": "best.pt",
+  "names": [
+    "longitudinal crack",
+    "transverse crack",
+    "alligator crack",
+    "pothole",
+    "manhole cover",
+    "longitudinal patch",
+    "transverse patch"
+  ],
+  "imgsz": 1024,
+  "confidence": 0.35,
+  "quantize": 32,
+  "rect": false,
+  "nms": true,
+  "iou": 0.7,
+  "max_det": 300,
+  "checkpoint_sha256": "d4ae5f0d0af0c6654638a7da90922740e523ad4ff4d0f08149d708a661dde53a",
+  "data_id": "23fb0ee97154b825fc979778295dfa9a822e2502aee8580fa7751cbf40375908",
+  "ultralytics": "8.4.191",
+  "desktop_app_verified": false,
+  "selection": "validation mAP50:95, then mAP50; validation micro-F1 confidence",
+  "evidence_limit": "small single-seed fine-tuning search; small gains may be noise"
+}
